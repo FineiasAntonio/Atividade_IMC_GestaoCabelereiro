@@ -41,18 +41,6 @@ O projeto cumpre rigorosamente todos os itens solicitados no edital da disciplin
 
 ---
 
-## Como Executar
-
-1.  Tenha o [SWI-Prolog](https://www.swi-prolog.org/) instalado em sua máquina.
-2.  Clone este repositório:
-    ```bash
-    git clone [https://github.com/seu-usuario/cutlog-hair-management.git](https://github.com/seu-usuario/cutlog-hair-management.git)
-    ```
-3.  Carregue o arquivo no console Prolog:
-    ```prolog
-    swipl -s src/cutlog.pl
-    ```
-
 ### Exemplos de Consultas Úteis:
 
 * **Verificar se um agendamento é seguro e possível:**
