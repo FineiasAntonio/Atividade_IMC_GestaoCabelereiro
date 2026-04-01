@@ -351,29 +351,4 @@ Resultado esperado:
   rafael:   4 visitas (bronze → prata)
   beatriz:  32 visitas (ouro → diamante)
 
-
-CONSULTA 6: Recomendação de funcionário por serviço e dia 
-
-?- recomendar_funcionario(coloracao, sexta, F).
-
-Resultado esperado:
-  F = carla
-
-
-CONSULTA 7: Pacote VIP para clientes diamante 
-
-?- pacote_vip(lucia, Pacote).
-
-Resultado esperado:
-  Pacote = [coloracao, luzes, alisamento, hidratacao, tratamento_capilar]
-
-
-CONSULTA 8: Faturamento total dos agendamentos do dia 
-
-?- faturamento_total_agendamentos(Total),
-   format("Faturamento total: R$~2f~n", [Total]).
-
-Resultado esperado:
-  Faturamento total: R$642.00
-
 */
