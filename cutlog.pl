@@ -186,16 +186,6 @@ salario_final(Nome, SalarioFinal, Descricao) :-
         Descricao = sem_hora_extra
     ).
 
-% pode_realizar_servico/2: verifica se funcionário tem especialidade no serviço
-
-pode_realizar_servico(Funcionario, Servico) :-
-    especialidade(Funcionario, Servico).
-
-% funcionario_disponivel_no_dia/2
-
-funcionario_disponivel_no_dia(Funcionario, Dia) :-
-    disponivel(Funcionario, Dia).
-
 %  SEÇÃO 5 — REGRAS: CLIENTES, DESCONTOS E FIDELIDADE
 
 % Regra com DISJUNÇÃO explícita via ";" 
@@ -266,18 +256,6 @@ agendamento_alergico(Cliente, Servico) :-
     produto_usado(Servico, Produto),
     alergia(Cliente, Produto).
 
-% servico_seguro/2: serviço é seguro para o cliente (sem alergia)
-
-servico_seguro(Cliente, Servico) :-
-    \+ agendamento_alergico(Cliente, Servico).
-
-% agendamento_com_preferencia/1: cliente agendou exatamente o serviço preferido
-
-agendamento_com_preferencia(Cliente) :-
-    agendamento(Cliente, _, Servico, _),
-    preferencia(Cliente, Servico, _).
-
-
 %  SEÇÃO 7 — REGRAS: RECOMENDAÇÃO PERSONALIZADA
 
 % recomendar_servico/2: recomenda serviço com base no nível do cliente
@@ -292,52 +270,6 @@ recomendar_servico(Cliente, Servico) :-
     ;   Nivel = prata                     -> Categoria = tratamento
     ;                                        (Categoria = cabelo ; Categoria = masculino)
     ).
-
-% recomendar_funcionario/3: recomenda funcionário disponível e especialista
-
-recomendar_funcionario(Servico, Dia, Funcionario) :-
-    especialidade(Funcionario, Servico),
-    disponivel(Funcionario, Dia).
-
-% pacote_vip/2: monta lista de serviços recomendados para cliente diamante
-
-pacote_vip(Cliente, Pacote) :-
-    cliente(Cliente, diamante),
-    findall(S, (servico(S, _, _, C), (C = quimica ; C = tratamento)), Pacote).
-
-
-%  SEÇÃO 8 — REGRAS: RELATÓRIO FINANCEIRO
-
-% faturamento_agendamento/3: valor que cada agendamento gera para o salão
-
-faturamento_agendamento(Cliente, Servico, Valor) :-
-    agendamento(Cliente, _, Servico, _),
-    valor_com_desconto(Cliente, Servico, Valor).
-
-% duracao_agendamento/3: duração do serviço agendado em minutos
-
-duracao_agendamento(Cliente, Servico, Duracao) :-
-    agendamento(Cliente, _, Servico, _),
-    servico(Servico, _, Duracao, _).
-
-% servico_mais_caro/2: verifica se serviço tem preço acima de um limite
-
-servico_premium(Servico, Preco) :-
-    servico(Servico, Preco, _, _),
-    Preco >= 200.
-
-% custo_total_funcionarios/1: soma todos os salários finais
-% (demonstra uso de findall e agregação)
-
-custo_total_funcionarios(Total) :-
-    findall(S, (funcionario(F, _, _, _), salario_final(F, S, _)), Lista),
-    sumlist(Lista, Total).
-
-% faturamento_total_agendamentos/1: soma todos os valores dos agendamentos
-
-faturamento_total_agendamentos(Total) :-
-    findall(V, (agendamento(C, _, Serv, _), valor_com_desconto(C, Serv, V)), Lista),
-    sumlist(Lista, Total).
 
 
 %  SEÇÃO 9 — CONSULTAS DEMONSTRATIVAS
